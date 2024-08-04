@@ -22,12 +22,12 @@ const { HttpsProxyAgent } = httpsProxyAgent
 dotenv.config()
 
 const ErrorCodeMessage: Record<string, string> = {
-  401: '[OpenAI] 提供错误的API密钥 | Incorrect API key provided',
-  403: '[OpenAI] 服务器拒绝访问，请稍后再试 | Server refused to access, please try again later',
-  502: '[OpenAI] 错误的网关 |  Bad Gateway',
-  503: '[OpenAI] 服务器繁忙，请稍后再试 | Server is busy, please try again later',
-  504: '[OpenAI] 网关超时 | Gateway Time-out',
-  500: '[OpenAI] 服务器繁忙，请稍后再试 | Internal Server Error',
+  401: '[OpenAI] 提供錯誤的API金鑰 | Incorrect API key provided',
+  403: '[OpenAI] 伺服器拒絕訪問，請稍後再試 | Server refused to access, please try again later',
+  502: '[OpenAI] 錯誤的閘道器 |  Bad Gateway',
+  503: '[OpenAI] 伺服器繁忙，請稍後再試 | Server is busy, please try again later',
+  504: '[OpenAI] 閘道器超時 | Gateway Time-out',
+  500: '[OpenAI] 伺服器繁忙，請稍後再試 | Internal Server Error',
 }
 
 let auditService: TextAuditService
@@ -131,14 +131,14 @@ async function chatReplyProcess(options: RequestOptions) {
   const maxContextCount = options.user.advanced.maxContextCount ?? 20
   const messageId = options.messageId
   if (key == null || key === undefined)
-    throw new Error('没有对应的apikeys配置。请再试一次 | No available apikeys configuration. Please try again.')
+    throw new Error('沒有對應的apikeys配置。請再試一次 | No available apikeys configuration. Please try again.')
 
   if (key.keyModel === 'ChatGPTUnofficialProxyAPI') {
     if (!options.room.accountId)
       updateRoomAccountId(userId, options.room.roomId, getAccountId(key.key))
 
     if (options.lastContext && ((options.lastContext.conversationId && !options.lastContext.parentMessageId) || (!options.lastContext.conversationId && options.lastContext.parentMessageId)))
-      throw new Error('无法在一个房间同时使用 AccessToken 以及 Api，请联系管理员，或新开聊天室进行对话 | Unable to use AccessToken and Api at the same time in the same room, please contact the administrator or open a new chat room for conversation')
+      throw new Error('無法在一個房間同時使用 AccessToken 以及 Api，請聯繫管理員，或新開聊天室進行對話 | Unable to use AccessToken and Api at the same time in the same room, please contact the administrator or open a new chat room for conversation')
   }
 
   // Add Chat Record
