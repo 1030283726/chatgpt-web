@@ -50,11 +50,16 @@ jobs:
 
       - name: Apply manual code changes
         run: |
-          set -e
-          # 修改預設語言為 zh-TW
-          sed -i "s/appStore.language || 'zh-CN'/appStore.language || 'zh-TW'/" src/locales/index.ts
-          sed -i "s/language: 'zh-CN'/language: 'zh-TW'/" src/store/modules/app/helper.ts
-          sed -i "s|const gitCommitSha = (import.meta.env.VITE_GIT_COMMIT_HASH || 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx').slice(0, 7)|const gitCommitSha = (import.meta.env.VITE_GIT_COMMIT_HASH || '').slice(0, 7)|" src/components/common/GitHubSite/index.vue
+          # 替換預設語言
+          cp src/locales/index.ts src/locales/index.ts.bak
+          awk '{gsub(/appStore.language \|\| '\''zh-CN'\''/, "appStore.language || '\''zh-TW'\''"); print }' src/locales/index.ts.bak > src/locales/index.ts
+
+          cp src/store/modules/app/helper.ts src/store/modules/app/helper.ts.bak
+          awk '{gsub(/language: '\''zh-CN'\''/, "language: '\''zh-TW'\''"); print }' src/store/modules/app/helper.ts.bak > src/store/modules/app/helper.ts
+
+          # 替換 gitCommitSha 行
+          cp src/components/common/GitHubSite/index.vue src/components/common/GitHubSite/index.vue.bak
+          awk '{if($0 ~ /VITE_GIT_COMMIT_HASH/) print "const gitCommitSha = (import.meta.env.VITE_GIT_COMMIT_HASH || \"\").slice(0, 7)"; else print $0}' src/components/common/GitHubSite/index.vue.bak > src/components/common/GitHubSite/index.vue
 
       - name: Clone custom mail templates
         run: git clone https://github.com/1030283726/chatgpt-web-mail-template.git template-repo
