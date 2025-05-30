@@ -40,7 +40,6 @@ jobs:
             "src/locales/zh-TW.ts"
             "service/src/utils/mail.ts"
           )
-
           for file in "${FILES[@]}"; do
             if [ -f "$file" ]; then
               echo "Converting $file"
@@ -51,11 +50,12 @@ jobs:
 
       - name: Apply manual code changes
         run: |
+          set -e
           # 修改預設語言為 zh-TW
           sed -i "s/appStore.language || 'zh-CN'/appStore.language || 'zh-TW'/" src/locales/index.ts
           sed -i "s/language: 'zh-CN'/language: 'zh-TW'/" src/store/modules/app/helper.ts
-          sed -i "s|VITE_GIT_COMMIT_HASH || 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'|VITE_GIT_COMMIT_HASH || ''|" src/components/common/GitHubSite/index.vue
-          
+          sed -i "s|const gitCommitSha = (import.meta.env.VITE_GIT_COMMIT_HASH || '.*').slice(0, 7)|const gitCommitSha = (import.meta.env.VITE_GIT_COMMIT_HASH || '').slice(0, 7)|" src/components/common/GitHubSite/index.vue
+
       - name: Clone custom mail templates
         run: git clone https://github.com/1030283726/chatgpt-web-mail-template.git template-repo
 
@@ -66,7 +66,7 @@ jobs:
         run: |
           git add .
           git commit -m "Auto: Sync upstream, convert to Traditional, apply custom mail templates" || echo "No changes to commit"
-          git push origin main
+          git push origin main-tw
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
