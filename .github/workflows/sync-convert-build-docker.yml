@@ -62,7 +62,8 @@ jobs:
           awk '{if($0 ~ /VITE_GIT_COMMIT_HASH/) print "const gitCommitSha = (import.meta.env.VITE_GIT_COMMIT_HASH || \"\").slice(0, 7)"; else print $0}' src/components/common/GitHubSite/index.vue.bak > src/components/common/GitHubSite/index.vue
 
       - name: Clone custom mail templates
-        run: git clone https://github.com/1030283726/chatgpt-web-mail-template.git template-repo
+        run: | 
+              git clone https://github.com/1030283726/chatgpt-web-mail-template.git template-repo
               rm -rf template-repo/.git
 
       - name: Replace mail templates
