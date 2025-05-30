@@ -55,7 +55,7 @@ jobs:
           sed -i "s/appStore.language || 'zh-CN'/appStore.language || 'zh-TW'/" src/locales/index.ts
           sed -i "s/language: 'zh-CN'/language: 'zh-TW'/" src/store/modules/app/helper.ts
           sed -i "s|VITE_GIT_COMMIT_HASH || 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'|VITE_GIT_COMMIT_HASH || ''|" src/components/common/GitHubSite/index.vue
-
+          
       - name: Clone custom mail templates
         run: git clone https://github.com/1030283726/chatgpt-web-mail-template.git template-repo
 
