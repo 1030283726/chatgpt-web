@@ -16,7 +16,7 @@ async function rootAuth(req, res, next) {
       const user = await getUser(username)
       req.headers.userId = user._id
       if (user == null || user.status !== Status.Normal || !user.roles.includes(UserRole.Admin))
-        res.send({ status: 'Fail', message: '无权限 | No permission.', data: null })
+        res.send({ status: 'Fail', message: '無權限 | No permission.', data: null })
       else
         next()
     }
@@ -33,7 +33,7 @@ async function rootAuth(req, res, next) {
       req.headers.userId = info.userId
       const user = await getUserById(info.userId)
       if (user == null || user.status !== Status.Normal || !user.roles.includes(UserRole.Admin))
-        res.send({ status: 'Fail', message: '无权限 | No permission.', data: null })
+        res.send({ status: 'Fail', message: '無權限 | No permission.', data: null })
       else
         next()
     }
@@ -42,7 +42,7 @@ async function rootAuth(req, res, next) {
     }
   }
   else {
-    res.send({ status: 'Fail', message: '无权限 | No permission.', data: null })
+    res.send({ status: 'Fail', message: '無權限 | No permission.', data: null })
   }
 }
 

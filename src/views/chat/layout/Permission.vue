@@ -93,7 +93,7 @@ async function handleVerifyAdmin(verifytoken: string) {
   try {
     loading.value = true
     await fetchVerifyAdmin(secretKey)
-    ms.success('开通成功 | Activate successfully')
+    ms.success('開通成功 | Activate successfully')
     router.replace('/')
   }
   catch (error: any) {
@@ -144,7 +144,7 @@ async function handleRegister() {
   const confirmPwd = confirmPassword.value.trim()
 
   if (!name || !pwd || !confirmPwd || pwd !== confirmPwd) {
-    ms.error('两次输入的密码不一致 | Passwords don\'t match')
+    ms.error('兩次輸入的密碼不一致 | Passwords don\'t match')
     return
   }
 
@@ -186,7 +186,7 @@ async function handleResetPassword() {
   const confirmPwd = confirmPassword.value.trim()
 
   if (!name || !pwd || !confirmPwd || pwd !== confirmPwd) {
-    ms.error('两次输入的密码不一致 | Passwords don\'t match')
+    ms.error('兩次輸入的密碼不一致 | Passwords don\'t match')
     return
   }
 

@@ -32,7 +32,7 @@ async function auth(req, res, next) {
       req.headers.userId = info.userId
       const user = await getUserById(info.userId)
       if (user == null || user.status !== Status.Normal)
-        throw new Error('用户不存在 | User does not exist.')
+        throw new Error('用戶不存在 | User does not exist.')
       else
         next()
     }
